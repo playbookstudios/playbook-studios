@@ -4,7 +4,18 @@ import react from '@vitejs/plugin-react-swc'
 import path from 'path'
 
 // Determine base path based on deployment environment
-const base = process.env.NODE_ENV === 'production' && process.env.VERCEL ? '/' : '/playbook-studios/'
+// Check for Vercel environment variables or build context
+const isVercel = process.env.VERCEL || process.env.VERCEL_ENV || process.env.NEXT_PUBLIC_VERCEL_URL
+const base = isVercel ? '/' : '/playbook-studios/'
+
+console.log('Environment check:', {
+  NODE_ENV: process.env.NODE_ENV,
+  VERCEL: process.env.VERCEL,
+  VERCEL_ENV: process.env.VERCEL_ENV,
+  NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL,
+  isVercel,
+  base
+})
 
 export default defineConfig({
   base, // Dynamic base path: '/' for Vercel, '/playbook-studios/' for GitHub Pages
