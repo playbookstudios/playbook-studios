@@ -1,5 +1,8 @@
 
-  import { defineConfig } from 'vite';
+  import { defineConfig } from 'vite'
+  export default defineConfig({
+    base: '/playbook-studios/',   // <-- REQUIRED for GitHub Pages under a subpath
+  })
   import react from '@vitejs/plugin-react-swc';
   import path from 'path';
 
