@@ -3,8 +3,11 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import path from 'path'
 
+// Determine base path based on deployment environment
+const base = process.env.NODE_ENV === 'production' && process.env.VERCEL ? '/' : '/playbook-studios/'
+
 export default defineConfig({
-  base: '/playbook-studios/',      // important for GitHub Pages subpath
+  base, // Dynamic base path: '/' for Vercel, '/playbook-studios/' for GitHub Pages
   plugins: [react()],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
