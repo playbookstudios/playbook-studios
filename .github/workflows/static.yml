@@ -1,4 +1,4 @@
-name: Deploy static content to Pages
+name: Deploy Vite app to GitHub Pages
 
 on:
   push:
@@ -12,27 +12,36 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Pages
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install & Build
+        working-directory: playbook-studios
+        run: |
+          npm ci
+          npm run build
+
+      - name: Configure Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # <-- IMPORTANT: publish the subfolder that contains index.html
-          path: playbook-studios
+          path: playbook-studios/dist   # publish the build output
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
