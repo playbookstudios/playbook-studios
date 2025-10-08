@@ -34,13 +34,16 @@ jobs:
           npm ci
           npm run build
 
+      - name: Show dist contents (sanity check)
+        run: ls -la playbook-studios/dist && sed -n '1,60p' playbook-studios/dist/index.html
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: playbook-studios/dist   # publish the build output
+          path: playbook-studios/dist
 
       - name: Deploy
         id: deployment
