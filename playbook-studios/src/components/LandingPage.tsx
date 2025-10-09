@@ -33,10 +33,11 @@ export function LandingPage() {
               Dream Career
             </span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 mb-4 max-w-2xl mx-auto">
             Explore careers, find the perfect major, and discover colleges that will help you achieve your goals. 
             Your future starts here.
           </p>
+          
           <Button 
             size="lg" 
             className="neomorphic-button-primary"
@@ -48,6 +49,9 @@ export function LandingPage() {
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>
+        
+        {/* Video Carousel in Hero */}
+        <CareerVideoCarousel />
       </section>
 
       {/* Stats Section */}
@@ -84,9 +88,6 @@ export function LandingPage() {
           </div>
         </div>
       </section>
-
-      {/* Video Carousel Section */}
-      <CareerVideoCarousel />
 
       {/* Career Paths Section */}
       <section id="careers" className="py-20 px-6">

@@ -131,20 +131,59 @@ export function CareerVideoCarousel() {
   };
 
   return (
-    <section className="py-20 px-6 bg-white/50">
-      <div className="container mx-auto max-w-7xl">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl mb-4">Hear From Real Professionals</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Watch people talk about what they love about their careers
-          </p>
-        </div>
-
+    <div className="mt-8">
+      <div className="container mx-auto max-w-7xl px-6">
         <div className="relative">
           {/* Main Content - Split Layout */}
           <div className="grid lg:grid-cols-2 gap-8 items-center">
-            {/* Left Side - Information Table */}
-            <Card className="neomorphic-card">
+            {/* Video - First on mobile, Left on desktop */}
+            <div className="relative order-1 lg:order-1">
+              <Card 
+                className="neomorphic-card overflow-hidden relative aspect-[9/16] cursor-pointer mx-auto max-w-md"
+                style={{
+                  background: `linear-gradient(135deg, ${currentVideo.gradientFrom}, ${currentVideo.gradientTo})`
+                }}
+                onClick={() => window.location.hash = `#/career/${currentVideo.careerId}`}
+              >
+                {/* Video overlay effect */}
+                <div className="absolute inset-0 bg-black/20" />
+                
+                {/* Play indicator (shows briefly when video loads) */}
+                {!isPlaying && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 z-10">
+                    <div className="w-20 h-20 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center">
+                      <Play className="h-10 w-10 text-white ml-1" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Person overlay on video */}
+                <div className="absolute inset-0 p-6 flex flex-col justify-end text-white z-20">
+                  <div className="text-center space-y-2">
+                    <h4 className="text-2xl text-white">{currentVideo.personName}</h4>
+                    <p className="text-lg text-white/90">{currentVideo.careerTitle}</p>
+                  </div>
+                </div>
+
+                {/* Mute/Unmute Button */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsMuted(!isMuted);
+                  }}
+                  className="absolute top-6 right-6 z-30 w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center hover:bg-black/40 transition-colors"
+                >
+                  {isMuted ? (
+                    <VolumeX className="h-5 w-5 text-white" />
+                  ) : (
+                    <Volume2 className="h-5 w-5 text-white" />
+                  )}
+                </button>
+              </Card>
+            </div>
+
+            {/* Information Table - Second on mobile, Right on desktop */}
+            <Card className="neomorphic-card order-2 lg:order-2">
               <CardContent className="p-8">
                 <div className="space-y-6">
                   {/* Header */}
@@ -207,52 +246,6 @@ export function CareerVideoCarousel() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Right Side - Video */}
-            <div className="relative">
-              <Card 
-                className="neomorphic-card overflow-hidden relative aspect-[9/16] cursor-pointer mx-auto max-w-md"
-                style={{
-                  background: `linear-gradient(135deg, ${currentVideo.gradientFrom}, ${currentVideo.gradientTo})`
-                }}
-                onClick={() => window.location.hash = `#/career/${currentVideo.careerId}`}
-              >
-                {/* Video overlay effect */}
-                <div className="absolute inset-0 bg-black/20" />
-                
-                {/* Play indicator (shows briefly when video loads) */}
-                {!isPlaying && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 z-10">
-                    <div className="w-20 h-20 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center">
-                      <Play className="h-10 w-10 text-white ml-1" />
-                    </div>
-                  </div>
-                )}
-
-                {/* Person overlay on video */}
-                <div className="absolute inset-0 p-6 flex flex-col justify-end text-white z-20">
-                  <div className="text-center space-y-2">
-                    <h4 className="text-2xl text-white">{currentVideo.personName}</h4>
-                    <p className="text-lg text-white/90">{currentVideo.careerTitle}</p>
-                  </div>
-                </div>
-
-                {/* Mute/Unmute Button */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsMuted(!isMuted);
-                  }}
-                  className="absolute top-6 right-6 z-30 w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center hover:bg-black/40 transition-colors"
-                >
-                  {isMuted ? (
-                    <VolumeX className="h-5 w-5 text-white" />
-                  ) : (
-                    <Volume2 className="h-5 w-5 text-white" />
-                  )}
-                </button>
-              </Card>
-            </div>
           </div>
 
           {/* Navigation Controls */}
@@ -316,6 +309,6 @@ export function CareerVideoCarousel() {
           transform: translateY(-2px);
         }
       `}</style>
-    </section>
+    </div>
   );
 }
