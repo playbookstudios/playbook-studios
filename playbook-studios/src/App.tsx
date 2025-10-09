@@ -4,10 +4,11 @@ import { AllCareersPage } from './components/AllCareersPage';
 import { CareerPathPage } from './components/CareerPathPage';
 import { MajorPage } from './components/MajorPage';
 import { CollegePage } from './components/CollegePage';
+import { AboutPage } from './components/AboutPage';
 
 export default function App() {
   const [route, setRoute] = useState<{
-    page: 'home' | 'careers' | 'career' | 'major' | 'college';
+    page: 'home' | 'careers' | 'career' | 'major' | 'college' | 'about';
     id?: string;
   }>({ page: 'home' });
 
@@ -19,6 +20,8 @@ export default function App() {
         setRoute({ page: 'home' });
       } else if (hash === '/careers') {
         setRoute({ page: 'careers' });
+      } else if (hash === '/about') {
+        setRoute({ page: 'about' });
       } else if (hash.startsWith('/career/')) {
         const id = hash.replace('/career/', '');
         setRoute({ page: 'career', id });
@@ -43,6 +46,7 @@ export default function App() {
     <>
       {route.page === 'home' && <LandingPage />}
       {route.page === 'careers' && <AllCareersPage />}
+      {route.page === 'about' && <AboutPage />}
       {route.page === 'career' && route.id && <CareerPathPage careerId={route.id} />}
       {route.page === 'major' && route.id && <MajorPage majorId={route.id} />}
       {route.page === 'college' && route.id && <CollegePage collegeId={route.id} />}

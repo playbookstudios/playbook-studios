@@ -21,7 +21,7 @@ export function LandingPage() {
           </div>
           <nav className="hidden md:flex space-x-8">
             <a href="#/careers" className="text-gray-600 hover:text-gray-900 transition-colors">Explore Careers</a>
-            <a href="#about" className="text-gray-600 hover:text-gray-900 transition-colors">About</a>
+            <a href="#/about" className="text-gray-600 hover:text-gray-900 transition-colors">About Us</a>
           </nav>
         </div>
       </header>
