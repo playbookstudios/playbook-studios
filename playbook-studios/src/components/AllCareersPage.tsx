@@ -5,7 +5,7 @@ import { careers, careerCategories } from '../data/careers';
 import { careerAwards } from '../data/careerAwards';
 import { CareerAwards } from './CareerAwards';
 import { useState } from 'react';
-import logoImage from '../assets/images/career-playbook-logo-v2.png';
+import logoImage from '../assets/images/career-playbook-logo-v3.png';
 
 export function AllCareersPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -39,16 +39,19 @@ export function AllCareersPage() {
       <header className="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-gray-200/50">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center">
-            <img 
-              src={logoImage} 
-              alt="The Career Playbook" 
-              className="h-12 w-auto"
-            />
+            <a href="#/" className="cursor-pointer">
+              <img 
+                src={logoImage} 
+                alt="The Career Playbook" 
+                className="h-12 w-auto hover:opacity-80 transition-opacity"
+              />
+            </a>
           </div>
           <nav className="hidden md:flex space-x-8">
-            <a href="#/careers" className="text-gray-900 transition-colors">Explore Careers</a>
+            <a href="#/careers" className="text-gray-900 transition-colors">Careers</a>
+            <a href="#/majors" className="text-gray-600 hover:text-gray-900 transition-colors">College Majors</a>
+            <a href="#/universities" className="text-gray-600 hover:text-gray-900 transition-colors">Universities</a>
             <a href="#/about" className="text-gray-600 hover:text-gray-900 transition-colors">About Us</a>
-            <a href="#/" className="text-gray-600 hover:text-gray-900 transition-colors">Home</a>
           </nav>
         </div>
       </header>

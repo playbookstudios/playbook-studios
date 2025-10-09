@@ -62,11 +62,11 @@ export function CollegePage({ collegeId }: CollegePageProps) {
         <div className="mb-12">
           <h1 className="text-5xl mb-4">{college.name}</h1>
           <div className="flex items-center gap-4 flex-wrap">
-            <Badge className="neomorphic-element text-base px-4 py-2">
+            <Badge className="neomorphic-element text-base px-4 py-2 text-gray-700">
               <MapPin className="h-4 w-4 mr-2" />
               {college.city}, {college.state}
             </Badge>
-            <Badge className="neomorphic-element text-base px-4 py-2">
+            <Badge className="neomorphic-element text-base px-4 py-2 text-gray-700">
               <DollarSign className="h-4 w-4 mr-2" />
               ${(college.annualCost / 1000).toFixed(0)}k per year
             </Badge>

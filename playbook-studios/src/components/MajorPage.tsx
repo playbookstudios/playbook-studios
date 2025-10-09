@@ -55,7 +55,7 @@ export function MajorPage({ majorId }: MajorPageProps) {
         {/* Title Section */}
         <div className="mb-12 text-center">
           <h1 className="text-5xl mb-4">{major.name}</h1>
-          <Badge className="neomorphic-element text-base px-6 py-2">
+          <Badge className="neomorphic-element text-base px-6 py-2 text-gray-700">
             <GraduationCap className="h-4 w-4 mr-2" />
             College Major
           </Badge>

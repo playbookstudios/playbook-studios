@@ -65,10 +65,10 @@ export function CareerPathPage({ careerId }: CareerPathPageProps) {
           )}
           
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Badge className="neomorphic-element">
+            <Badge className="neomorphic-element text-gray-700">
               Stability: {career.stability.rating}/10
             </Badge>
-            <Badge className="neomorphic-element">
+            <Badge className="neomorphic-element text-gray-700">
               Competition: {career.competition.level}
             </Badge>
           </div>
@@ -139,7 +139,7 @@ export function CareerPathPage({ careerId }: CareerPathPageProps) {
           <CardContent>
             <div className="flex flex-wrap gap-3">
               {career.industries.map((industry, index) => (
-                <Badge key={index} className="neomorphic-element text-base px-4 py-2">
+                <Badge key={index} className="neomorphic-element text-base px-4 py-2 text-gray-700">
                   {industry}
                 </Badge>
               ))}
