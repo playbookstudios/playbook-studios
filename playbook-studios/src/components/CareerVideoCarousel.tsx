@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
-import { ChevronLeft, ChevronRight, Volume2, VolumeX, Play, DollarSign } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Volume2, VolumeX, Play, DollarSign, Building2 } from 'lucide-react';
 import { careers } from '../data/careers';
 
 interface CareerVideo {
@@ -9,6 +9,8 @@ interface CareerVideo {
   careerTitle: string;
   personName: string;
   personAge: number;
+  companyName: string;
+  companyLogo: string;
   quote: string;
   gradientFrom: string;
   gradientTo: string;
@@ -20,6 +22,8 @@ const careerVideos: CareerVideo[] = [
     careerTitle: "Software Developer",
     personName: "Marcus Chen",
     personAge: 26,
+    companyName: "Google",
+    companyLogo: "https://logo.clearbit.com/google.com",
     quote: "I build apps that millions of people use every day. Started coding in high school, now I'm creating features for a top tech company. The best part? I can work from anywhere and the pay is incredible.",
     gradientFrom: "#667eea",
     gradientTo: "#764ba2"
@@ -29,6 +33,8 @@ const careerVideos: CareerVideo[] = [
     careerTitle: "Registered Nurse",
     personName: "Sarah Johnson",
     personAge: 29,
+    companyName: "Mayo Clinic",
+    companyLogo: "https://logo.clearbit.com/mayoclinic.org",
     quote: "Every day I make a real difference in people's lives. It's challenging but so rewarding. I help patients recover, comfort families, and the job security is amazing. Plus, there are so many specialties to explore.",
     gradientFrom: "#f093fb",
     gradientTo: "#f5576c"
@@ -38,6 +44,8 @@ const careerVideos: CareerVideo[] = [
     careerTitle: "UX/UI Designer",
     personName: "Alex Rivera",
     personAge: 25,
+    companyName: "Adobe",
+    companyLogo: "https://logo.clearbit.com/adobe.com",
     quote: "I turn ideas into beautiful, user-friendly designs. My art degree actually became a lucrative career! I work with developers and clients to create apps and websites that people love using.",
     gradientFrom: "#4facfe",
     gradientTo: "#00f2fe"
@@ -47,6 +55,8 @@ const careerVideos: CareerVideo[] = [
     careerTitle: "Data Scientist",
     personName: "Priya Patel",
     personAge: 28,
+    companyName: "Netflix",
+    companyLogo: "https://logo.clearbit.com/netflix.com",
     quote: "I find patterns in data that help companies make million-dollar decisions. It's like being a detective with numbers. Started with a math degree, now I'm using AI and machine learning to solve real problems.",
     gradientFrom: "#43e97b",
     gradientTo: "#38f9d7"
@@ -56,6 +66,8 @@ const careerVideos: CareerVideo[] = [
     careerTitle: "Physical Therapist",
     personName: "Jordan Martinez",
     personAge: 31,
+    companyName: "ATI Physical Therapy",
+    companyLogo: "https://logo.clearbit.com/atipt.com",
     quote: "I help athletes get back in the game and seniors stay independent. Seeing someone walk again after an injury is the best feeling. Great work-life balance and I can open my own practice someday.",
     gradientFrom: "#fa709a",
     gradientTo: "#fee140"
@@ -65,6 +77,8 @@ const careerVideos: CareerVideo[] = [
     careerTitle: "Marketing Manager",
     personName: "Emily Thompson",
     personAge: 27,
+    companyName: "Meta",
+    companyLogo: "https://logo.clearbit.com/meta.com",
     quote: "I create campaigns that go viral and drive sales. Every day is different - analyzing data, brainstorming creative ideas, working with influencers. If you love social media and creativity, this is it.",
     gradientFrom: "#30cfd0",
     gradientTo: "#330867"
@@ -74,6 +88,8 @@ const careerVideos: CareerVideo[] = [
     careerTitle: "Mechanical Engineer",
     personName: "David Kim",
     personAge: 30,
+    companyName: "Tesla",
+    companyLogo: "https://logo.clearbit.com/tesla.com",
     quote: "I design the future - from electric cars to renewable energy systems. If you love building things and solving complex problems, engineering is incredible. The projects I work on will change the world.",
     gradientFrom: "#a8edea",
     gradientTo: "#fed6e3"
@@ -83,6 +99,8 @@ const careerVideos: CareerVideo[] = [
     careerTitle: "High School Teacher",
     personName: "Michelle Brown",
     personAge: 33,
+    companyName: "Boston Public Schools",
+    companyLogo: "https://logo.clearbit.com/bostonpublicschools.org",
     quote: "I inspire the next generation every single day. Teaching biology means showing students how amazing science is. Seeing former students succeed in STEM careers makes everything worth it. Summers off doesn't hurt either!",
     gradientFrom: "#ff9a9e",
     gradientTo: "#fecfef"
@@ -92,6 +110,8 @@ const careerVideos: CareerVideo[] = [
     careerTitle: "Cybersecurity Analyst",
     personName: "Tyler Washington",
     personAge: 27,
+    companyName: "CrowdStrike",
+    companyLogo: "https://logo.clearbit.com/crowdstrike.com",
     quote: "I'm literally protecting companies from hackers. It's like playing chess against cybercriminals. The demand is insane, job security is top-tier, and companies pay big money to keep their data safe.",
     gradientFrom: "#a18cd1",
     gradientTo: "#fbc2eb"
@@ -194,16 +214,26 @@ export function CareerVideoCarousel() {
 
                   {/* Info Table */}
                   <div className="space-y-4">
-                    {/* Full Name Row */}
+                    {/* Age Row */}
                     <div className="flex justify-between items-center p-4 rounded-lg bg-gradient-to-r from-gray-50 to-gray-100">
-                      <span className="text-gray-600">Full Name</span>
-                      <span className="text-gray-900">{currentVideo.personName}, {currentVideo.personAge}</span>
+                      <span className="text-gray-600">Age</span>
+                      <span className="text-gray-900">{currentVideo.personAge}</span>
                     </div>
 
-                    {/* Job Title Row */}
+                    {/* Company Row */}
                     <div className="flex justify-between items-center p-4 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50">
-                      <span className="text-gray-600">Career</span>
-                      <span className="text-blue-700">{currentVideo.careerTitle}</span>
+                      <span className="text-gray-600">Company</span>
+                      <div className="flex items-center gap-2">
+                        <img 
+                          src={currentVideo.companyLogo} 
+                          alt={currentVideo.companyName}
+                          className="w-6 h-6 rounded"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
+                        <span className="text-blue-700">{currentVideo.companyName}</span>
+                      </div>
                     </div>
 
                     {/* Salary Range Row */}
@@ -226,13 +256,6 @@ export function CareerVideoCarousel() {
                       </div>
                     )}
 
-                    {/* Quote */}
-                    <div className="p-4 rounded-lg bg-gradient-to-r from-purple-50 to-pink-50">
-                      <p className="text-xs text-gray-500 mb-2">What They Say</p>
-                      <p className="text-gray-700 italic leading-relaxed">
-                        "{currentVideo.quote}"
-                      </p>
-                    </div>
                   </div>
 
                   {/* CTA Button */}

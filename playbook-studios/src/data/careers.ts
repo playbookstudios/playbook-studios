@@ -20,6 +20,7 @@ export interface Career {
     difficulty: string;
   };
   topMajors: string[]; // IDs of majors
+  awards?: string[]; // Award IDs
 }
 
 export const careerCategories = [
@@ -56,7 +57,8 @@ export const careers: Career[] = [
       level: "High",
       difficulty: "Moderate to High - Requires strong problem-solving skills and continuous learning, but many resources available for self-teaching"
     },
-    topMajors: ["computer-science", "software-engineering", "computer-engineering"]
+    topMajors: ["computer-science", "software-engineering", "computer-engineering"],
+    awards: ["top-earner", "tech-forward", "future-proof"]
   },
   {
     id: "data-scientist",
@@ -79,7 +81,8 @@ export const careers: Career[] = [
       level: "Very High",
       difficulty: "High - Requires strong programming, statistics, and communication skills plus business acumen"
     },
-    topMajors: ["data-science", "computer-science", "statistics"]
+    topMajors: ["data-science", "computer-science", "statistics"],
+    awards: ["top-earner", "tech-forward", "fast-growing"]
   },
   {
     id: "mechanical-engineer",
@@ -196,7 +199,8 @@ export const careers: Career[] = [
       level: "Moderate",
       difficulty: "High - Requires nursing degree, passing NCLEX exam, emotional resilience, and strong multitasking abilities"
     },
-    topMajors: ["nursing", "biology"]
+    topMajors: ["nursing", "biology"],
+    awards: ["social-impact", "future-proof", "helping-others"]
   },
   {
     id: "physical-therapist",
@@ -219,7 +223,8 @@ export const careers: Career[] = [
       level: "Moderate to High",
       difficulty: "High - Requires Doctor of Physical Therapy degree, clinical experience, licensing exam, and strong interpersonal skills"
     },
-    topMajors: ["exercise-science", "biology", "kinesiology"]
+    topMajors: ["exercise-science", "biology", "kinesiology"],
+    awards: ["helping-others", "work-life-balance", "entrepreneur-friendly"]
   },
   {
     id: "physician-assistant",
@@ -407,7 +412,8 @@ export const careers: Career[] = [
       level: "Moderate",
       difficulty: "Moderate - Requires teaching credential, subject expertise, patience, and strong communication skills"
     },
-    topMajors: ["education", "mathematics", "english", "biology"]
+    topMajors: ["education", "mathematics", "english", "biology"],
+    awards: ["social-impact", "helping-others", "work-life-balance"]
   },
   {
     id: "social-worker",
@@ -478,7 +484,8 @@ export const careers: Career[] = [
       level: "High",
       difficulty: "Moderate - Requires creativity, technical skills with design software, understanding of design principles, and often a strong portfolio"
     },
-    topMajors: ["graphic-design", "visual-arts", "communications"]
+    topMajors: ["graphic-design", "visual-arts", "communications"],
+    awards: ["creative-freedom", "entrepreneur-friendly"]
   },
   {
     id: "ux-designer",
@@ -501,7 +508,8 @@ export const careers: Career[] = [
       level: "High",
       difficulty: "Moderate to High - Requires design skills, user research methods, prototyping tools, psychology understanding, and strong portfolio"
     },
-    topMajors: ["graphic-design", "computer-science", "psychology"]
+    topMajors: ["graphic-design", "computer-science", "psychology"],
+    awards: ["creative-freedom", "tech-forward", "fast-growing"]
   },
   {
     id: "video-producer",
@@ -714,7 +722,8 @@ export const careers: Career[] = [
       level: "Low to Moderate",
       difficulty: "Moderate - Requires apprenticeship, technical knowledge, licensing, physical work, and attention to safety. Good career path without requiring college degree."
     },
-    topMajors: ["vocational-training", "engineering-technology"]
+    topMajors: ["vocational-training", "engineering-technology"],
+    awards: ["no-degree-needed", "future-proof", "entrepreneur-friendly"]
   },
   {
     id: "plumber",

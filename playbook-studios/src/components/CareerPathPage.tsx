@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { careers } from '../data/careers';
 import { majors } from '../data/majors';
+import { CareerAwards } from './CareerAwards';
 
 interface CareerPathPageProps {
   careerId: string;
@@ -55,6 +56,14 @@ export function CareerPathPage({ careerId }: CareerPathPageProps) {
         {/* Title Section */}
         <div className="mb-12 text-center">
           <h1 className="text-5xl mb-4">{career.title}</h1>
+          
+          {/* Career Awards */}
+          {career.awards && career.awards.length > 0 && (
+            <div className="mb-6">
+              <CareerAwards careerAwardIds={career.awards} maxDisplay={6} size="md" />
+            </div>
+          )}
+          
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Badge className="neomorphic-element">
               Stability: {career.stability.rating}/10
