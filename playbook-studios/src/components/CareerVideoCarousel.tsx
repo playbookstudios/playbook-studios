@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { ChevronLeft, ChevronRight, Volume2, VolumeX, Play, DollarSign, Building2 } from 'lucide-react';
@@ -14,6 +14,7 @@ interface CareerVideo {
   quote: string;
   gradientFrom: string;
   gradientTo: string;
+  videoUrl: string;
 }
 
 const careerVideos: CareerVideo[] = [
@@ -26,7 +27,8 @@ const careerVideos: CareerVideo[] = [
     companyLogo: "https://logo.clearbit.com/google.com",
     quote: "I build apps that millions of people use every day. Started coding in high school, now I'm creating features for a top tech company. The best part? I can work from anywhere and the pay is incredible.",
     gradientFrom: "#667eea",
-    gradientTo: "#764ba2"
+    gradientTo: "#764ba2",
+    videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4"
   },
   {
     careerId: "registered-nurse",
@@ -37,7 +39,8 @@ const careerVideos: CareerVideo[] = [
     companyLogo: "https://logo.clearbit.com/mayoclinic.org",
     quote: "Every day I make a real difference in people's lives. It's challenging but so rewarding. I help patients recover, comfort families, and the job security is amazing. Plus, there are so many specialties to explore.",
     gradientFrom: "#f093fb",
-    gradientTo: "#f5576c"
+    gradientTo: "#f5576c",
+    videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4"
   },
   {
     careerId: "ux-designer",
@@ -48,7 +51,8 @@ const careerVideos: CareerVideo[] = [
     companyLogo: "https://logo.clearbit.com/adobe.com",
     quote: "I turn ideas into beautiful, user-friendly designs. My art degree actually became a lucrative career! I work with developers and clients to create apps and websites that people love using.",
     gradientFrom: "#4facfe",
-    gradientTo: "#00f2fe"
+    gradientTo: "#00f2fe",
+    videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_5mb.mp4"
   },
   {
     careerId: "data-scientist",
@@ -59,7 +63,8 @@ const careerVideos: CareerVideo[] = [
     companyLogo: "https://logo.clearbit.com/netflix.com",
     quote: "I find patterns in data that help companies make million-dollar decisions. It's like being a detective with numbers. Started with a math degree, now I'm using AI and machine learning to solve real problems.",
     gradientFrom: "#43e97b",
-    gradientTo: "#38f9d7"
+    gradientTo: "#38f9d7",
+    videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_10mb.mp4"
   },
   {
     careerId: "physical-therapist",
@@ -70,7 +75,8 @@ const careerVideos: CareerVideo[] = [
     companyLogo: "https://logo.clearbit.com/atipt.com",
     quote: "I help athletes get back in the game and seniors stay independent. Seeing someone walk again after an injury is the best feeling. Great work-life balance and I can open my own practice someday.",
     gradientFrom: "#fa709a",
-    gradientTo: "#fee140"
+    gradientTo: "#fee140",
+    videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4"
   },
   {
     careerId: "marketing-manager",
@@ -81,7 +87,8 @@ const careerVideos: CareerVideo[] = [
     companyLogo: "https://logo.clearbit.com/meta.com",
     quote: "I create campaigns that go viral and drive sales. Every day is different - analyzing data, brainstorming creative ideas, working with influencers. If you love social media and creativity, this is it.",
     gradientFrom: "#30cfd0",
-    gradientTo: "#330867"
+    gradientTo: "#330867",
+    videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4"
   },
   {
     careerId: "mechanical-engineer",
@@ -92,7 +99,8 @@ const careerVideos: CareerVideo[] = [
     companyLogo: "https://logo.clearbit.com/tesla.com",
     quote: "I design the future - from electric cars to renewable energy systems. If you love building things and solving complex problems, engineering is incredible. The projects I work on will change the world.",
     gradientFrom: "#a8edea",
-    gradientTo: "#fed6e3"
+    gradientTo: "#fed6e3",
+    videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_5mb.mp4"
   },
   {
     careerId: "teacher",
@@ -103,7 +111,8 @@ const careerVideos: CareerVideo[] = [
     companyLogo: "https://logo.clearbit.com/bostonpublicschools.org",
     quote: "I inspire the next generation every single day. Teaching biology means showing students how amazing science is. Seeing former students succeed in STEM careers makes everything worth it. Summers off doesn't hurt either!",
     gradientFrom: "#ff9a9e",
-    gradientTo: "#fecfef"
+    gradientTo: "#fecfef",
+    videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_10mb.mp4"
   },
   {
     careerId: "cybersecurity-analyst",
@@ -114,7 +123,8 @@ const careerVideos: CareerVideo[] = [
     companyLogo: "https://logo.clearbit.com/crowdstrike.com",
     quote: "I'm literally protecting companies from hackers. It's like playing chess against cybercriminals. The demand is insane, job security is top-tier, and companies pay big money to keep their data safe.",
     gradientFrom: "#a18cd1",
-    gradientTo: "#fbc2eb"
+    gradientTo: "#fbc2eb",
+    videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4"
   }
 ];
 
@@ -122,6 +132,7 @@ export function CareerVideoCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     // Auto-advance carousel every 5 seconds
@@ -133,10 +144,21 @@ export function CareerVideoCarousel() {
   }, []);
 
   useEffect(() => {
-    // Simulate video starting to play
-    setIsPlaying(false);
-    const timer = setTimeout(() => setIsPlaying(true), 300);
-    return () => clearTimeout(timer);
+    // Play video when it changes
+    if (videoRef.current) {
+      setIsPlaying(false);
+      const timer = setTimeout(async () => {
+        if (videoRef.current) {
+          try {
+            await videoRef.current.play();
+            setIsPlaying(true);
+          } catch (error) {
+            console.log('Video autoplay failed:', error);
+          }
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
   }, [currentIndex]);
 
   const currentVideo = careerVideos[currentIndex];
@@ -154,17 +176,40 @@ export function CareerVideoCarousel() {
     <div className="mt-8">
       <div className="container mx-auto max-w-7xl px-6">
         <div className="relative">
-          {/* Main Content - Split Layout */}
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            {/* Video - First on mobile, Left on desktop */}
-            <div className="relative order-1 lg:order-1">
+          {/* Main Content - Shared Container */}
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-center max-w-4xl mx-auto">
+            {/* Video */}
+            <div className="relative w-full max-w-md">
               <Card 
-                className="neomorphic-card overflow-hidden relative aspect-[9/16] cursor-pointer mx-auto max-w-md"
+                className="neomorphic-card overflow-hidden relative aspect-[9/16] cursor-pointer w-full"
                 style={{
                   background: `linear-gradient(135deg, ${currentVideo.gradientFrom}, ${currentVideo.gradientTo})`
                 }}
                 onClick={() => window.location.hash = `#/career/${currentVideo.careerId}`}
               >
+                {/* Video Element */}
+                <video
+                  ref={videoRef}
+                  className="w-full h-full object-cover"
+                  muted={isMuted}
+                  loop
+                  playsInline
+                  preload="metadata"
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                  onClick={() => {
+                    if (videoRef.current) {
+                      if (videoRef.current.paused) {
+                        videoRef.current.play();
+                      } else {
+                        videoRef.current.pause();
+                      }
+                    }
+                  }}
+                >
+                  <source src={currentVideo.videoUrl} type="video/mp4" />
+                </video>
+
                 {/* Video overlay effect */}
                 <div className="absolute inset-0 bg-black/20" />
                 
@@ -202,55 +247,55 @@ export function CareerVideoCarousel() {
               </Card>
             </div>
 
-            {/* Information Table - Second on mobile, Right on desktop */}
-            <Card className="neomorphic-card order-2 lg:order-2">
-              <CardContent className="p-8">
-                <div className="space-y-6">
+            {/* Compact Information Card - Same width as video */}
+            <Card className="neomorphic-card w-full max-w-md">
+              <CardContent className="p-6">
+                <div className="space-y-4">
                   {/* Header */}
-                  <div className="pb-4 border-b border-gray-200">
-                    <h3 className="text-3xl mb-2">{currentVideo.personName}</h3>
-                    <p className="text-xl text-gray-600">{currentVideo.careerTitle}</p>
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold text-gray-800">{currentVideo.personName}</h3>
+                    <p className="text-sm text-gray-600">{currentVideo.careerTitle}</p>
                   </div>
 
-                  {/* Info Table */}
-                  <div className="space-y-4">
-                    {/* Age Row */}
-                    <div className="flex justify-between items-center p-4 rounded-lg bg-gradient-to-r from-gray-50 to-gray-100">
-                      <span className="text-gray-600">Age</span>
-                      <span className="text-gray-900">{currentVideo.personAge}</span>
+                  {/* Compact Info */}
+                  <div className="space-y-3">
+                    {/* Age */}
+                    <div className="flex justify-between items-center py-2 px-3 rounded-lg bg-gray-50">
+                      <span className="text-sm text-gray-600">Age</span>
+                      <span className="text-sm font-medium text-gray-900">{currentVideo.personAge}</span>
                     </div>
 
-                    {/* Company Row */}
-                    <div className="flex justify-between items-center p-4 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50">
-                      <span className="text-gray-600">Company</span>
+                    {/* Company */}
+                    <div className="flex justify-between items-center py-2 px-3 rounded-lg bg-blue-50">
+                      <span className="text-sm text-gray-600">Company</span>
                       <div className="flex items-center gap-2">
                         <img 
                           src={currentVideo.companyLogo} 
                           alt={currentVideo.companyName}
-                          className="w-6 h-6 rounded"
+                          className="w-4 h-4 rounded"
                           onError={(e) => {
                             e.currentTarget.style.display = 'none';
                           }}
                         />
-                        <span className="text-blue-700">{currentVideo.companyName}</span>
+                        <span className="text-sm font-medium text-blue-700">{currentVideo.companyName}</span>
                       </div>
                     </div>
 
-                    {/* Salary Range Row */}
+                    {/* Salary Range */}
                     {currentCareer && (
-                      <div className="p-4 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                        <div className="flex items-center gap-2 mb-3">
-                          <DollarSign className="h-5 w-5 text-green-600" />
-                          <span className="text-gray-600">Salary Range</span>
+                      <div className="py-2 px-3 rounded-lg bg-green-50">
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <DollarSign className="h-4 w-4 text-green-600" />
+                          <span className="text-sm text-gray-600">Salary Range</span>
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="flex justify-between text-center">
                           <div>
-                            <p className="text-xs text-gray-500 mb-1">Entry Level</p>
-                            <p className="text-green-700">${(currentCareer.salary.entryLevel / 1000).toFixed(0)}k/year</p>
+                            <p className="text-xs text-gray-500">Entry</p>
+                            <p className="text-sm font-medium text-green-700">${(currentCareer.salary.entryLevel / 1000).toFixed(0)}k</p>
                           </div>
                           <div>
-                            <p className="text-xs text-gray-500 mb-1">After 10 Years</p>
-                            <p className="text-green-700">${(currentCareer.salary.tenYears / 1000).toFixed(0)}k/year</p>
+                            <p className="text-xs text-gray-500">10 Years</p>
+                            <p className="text-sm font-medium text-green-700">${(currentCareer.salary.tenYears / 1000).toFixed(0)}k</p>
                           </div>
                         </div>
                       </div>

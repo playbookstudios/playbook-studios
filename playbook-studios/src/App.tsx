@@ -7,10 +7,12 @@ import { CollegePage } from './components/CollegePage';
 import { AboutPage } from './components/AboutPage';
 import { CollegeMajorsPage } from './components/CollegeMajorsPage';
 import { UniversitiesPage } from './components/UniversitiesPage';
+import { PodcastPage } from './components/PodcastPage';
+import { AuthPage } from './components/AuthPage';
 
 export default function App() {
   const [route, setRoute] = useState<{
-    page: 'home' | 'careers' | 'career' | 'major' | 'college' | 'about' | 'majors' | 'universities';
+    page: 'home' | 'careers' | 'career' | 'major' | 'college' | 'about' | 'majors' | 'universities' | 'podcast' | 'auth';
     id?: string;
   }>({ page: 'home' });
 
@@ -28,6 +30,10 @@ export default function App() {
         setRoute({ page: 'majors' });
       } else if (hash === '/universities') {
         setRoute({ page: 'universities' });
+      } else if (hash === '/podcast') {
+        setRoute({ page: 'podcast' });
+      } else if (hash === '/auth') {
+        setRoute({ page: 'auth' });
       } else if (hash.startsWith('/career/')) {
         const id = hash.replace('/career/', '');
         setRoute({ page: 'career', id });
@@ -58,6 +64,8 @@ export default function App() {
       {route.page === 'about' && <AboutPage />}
       {route.page === 'majors' && <CollegeMajorsPage />}
       {route.page === 'universities' && <UniversitiesPage />}
+      {route.page === 'podcast' && <PodcastPage />}
+      {route.page === 'auth' && <AuthPage />}
       {route.page === 'career' && route.id && <CareerPathPage careerId={route.id} />}
       {route.page === 'major' && route.id && <MajorPage majorId={route.id} />}
       {route.page === 'college' && route.id && <CollegePage collegeId={route.id} />}

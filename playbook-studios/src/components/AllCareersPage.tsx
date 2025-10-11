@@ -51,7 +51,9 @@ export function AllCareersPage() {
             <a href="#/careers" className="text-gray-900 transition-colors">Careers</a>
             <a href="#/majors" className="text-gray-600 hover:text-gray-900 transition-colors">College Majors</a>
             <a href="#/universities" className="text-gray-600 hover:text-gray-900 transition-colors">Universities</a>
+            <a href="#/podcast" className="text-gray-600 hover:text-gray-900 transition-colors">Podcast</a>
             <a href="#/about" className="text-gray-600 hover:text-gray-900 transition-colors">About Us</a>
+            <a href="#/auth" className="text-gray-600 hover:text-gray-900 transition-colors">Account</a>
           </nav>
         </div>
       </header>
