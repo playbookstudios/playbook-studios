@@ -8,9 +8,10 @@ import {
   Briefcase, 
   Target,
   GraduationCap,
-  AlertCircle
+  AlertCircle,
+  BookOpen
 } from 'lucide-react';
-import { careers } from '../data/careers';
+import { careers, educationLevels } from '../data/careers';
 import { majors } from '../data/majors';
 import { CareerAwards } from './CareerAwards';
 
@@ -194,6 +195,86 @@ export function CareerPathPage({ careerId }: CareerPathPageProps) {
                 <span className="text-sm text-gray-600">Difficulty Assessment:</span>
                 <p className="text-gray-700 leading-relaxed">{career.competition.difficulty}</p>
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Education Requirements */}
+        <Card className="neomorphic-card mb-8">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BookOpen className="h-6 w-6" />
+              Education Requirements
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              {/* Recommended Education */}
+              <div className="p-4 rounded-lg bg-gradient-to-r from-purple-50 to-violet-50">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">{educationLevels[career.education.recommended].icon}</span>
+                  <h4 className="text-lg font-semibold text-purple-800">
+                    {educationLevels[career.education.recommended].label}
+                  </h4>
+                </div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-purple-600">
+                    {educationLevels[career.education.recommended].description}
+                  </span>
+                  <Badge className="bg-purple-200 text-purple-800">
+                    {educationLevels[career.education.recommended].years}
+                  </Badge>
+                </div>
+                <p className="text-sm font-medium text-purple-700">Recommended for this career</p>
+              </div>
+
+              {/* Minimum Education (if different) */}
+              {career.education.minimum !== career.education.recommended && (
+                <div className="p-4 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-lg">{educationLevels[career.education.minimum].icon}</span>
+                    <h4 className="text-lg font-semibold text-blue-800">
+                      {educationLevels[career.education.minimum].label}
+                    </h4>
+                  </div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-blue-600">
+                      {educationLevels[career.education.minimum].description}
+                    </span>
+                    <Badge className="bg-blue-200 text-blue-800">
+                      {educationLevels[career.education.minimum].years}
+                    </Badge>
+                  </div>
+                  <p className="text-sm font-medium text-blue-700">Minimum requirement</p>
+                </div>
+              )}
+
+              {/* Alternative Education Paths */}
+              {career.education.alternatives && career.education.alternatives.length > 0 && (
+                <div>
+                  <h5 className="text-sm font-semibold text-gray-700 mb-3">Alternative Education Paths:</h5>
+                  <div className="flex flex-wrap gap-2">
+                    {career.education.alternatives.map((altLevel, index) => (
+                      <Badge key={index} className="bg-gray-200 text-gray-700">
+                        {educationLevels[altLevel].label}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Education Notes */}
+              {career.education.notes && (
+                <div className="p-4 rounded-lg bg-gradient-to-r from-yellow-50 to-amber-50">
+                  <div className="flex items-start gap-2">
+                    <AlertCircle className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h5 className="text-sm font-semibold text-amber-800 mb-1">Important Notes:</h5>
+                      <p className="text-sm text-amber-700">{career.education.notes}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>

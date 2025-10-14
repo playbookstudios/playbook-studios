@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
-import { ArrowRight, Compass, TrendingUp, Briefcase, DollarSign, Award, Filter } from 'lucide-react';
-import { careers, careerCategories } from '../data/careers';
+import { ArrowRight, Compass, TrendingUp, Briefcase, DollarSign, Award, Filter, GraduationCap } from 'lucide-react';
+import { careers, careerCategories, educationLevels } from '../data/careers';
 import { careerAwards } from '../data/careerAwards';
 import { CareerAwards } from './CareerAwards';
 import { useState } from 'react';
@@ -262,6 +262,29 @@ export function AllCareersPage() {
                                 <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-700">
                                   {career.competition.level}
                                 </span>
+                              </div>
+                            </div>
+
+                            {/* Education Requirements */}
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2 text-gray-600 mb-2">
+                                <GraduationCap className="h-4 w-4" />
+                                <span className="text-xs font-semibold uppercase">Education</span>
+                              </div>
+                              <div className="p-3 rounded-lg bg-gradient-to-r from-purple-50 to-violet-50">
+                                <div className="flex items-center justify-between mb-1">
+                                  <span className="text-sm font-medium text-purple-700">
+                                    {educationLevels[career.education.recommended].label}
+                                  </span>
+                                  <span className="text-xs text-purple-600">
+                                    {educationLevels[career.education.recommended].years}
+                                  </span>
+                                </div>
+                                {career.education.minimum !== career.education.recommended && (
+                                  <p className="text-xs text-purple-600">
+                                    Min: {educationLevels[career.education.minimum].label}
+                                  </p>
+                                )}
                               </div>
                             </div>
 

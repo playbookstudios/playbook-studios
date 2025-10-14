@@ -205,3 +205,4 @@ export function addArticleStructuredData(articleData: {
   script.textContent = JSON.stringify(articleStructuredData);
   document.head.appendChild(script);
 }
+
