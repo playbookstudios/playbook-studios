@@ -121,40 +121,6 @@ export function LandingPage() {
         <CareerVideoCarousel />
       </section>
 
-      {/* Stats Section */}
-      <section className="py-12 px-6 bg-white/50">
-        <div className="container mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="neomorphic-card text-center">
-              <CardContent className="p-6">
-                <div className="mx-auto mb-4 w-16 h-16 neomorphic-icon-container flex items-center justify-center text-blue-500">
-                  <Compass className="h-8 w-8" />
-                </div>
-                <div className="text-4xl mb-2">10</div>
-                <p className="text-gray-600">Top Career Paths</p>
-              </CardContent>
-            </Card>
-            <Card className="neomorphic-card text-center">
-              <CardContent className="p-6">
-                <div className="mx-auto mb-4 w-16 h-16 neomorphic-icon-container flex items-center justify-center text-purple-500">
-                  <GraduationCap className="h-8 w-8" />
-                </div>
-                <div className="text-4xl mb-2">19</div>
-                <p className="text-gray-600">College Majors</p>
-              </CardContent>
-            </Card>
-            <Card className="neomorphic-card text-center">
-              <CardContent className="p-6">
-                <div className="mx-auto mb-4 w-16 h-16 neomorphic-icon-container flex items-center justify-center text-green-500">
-                  <Building2 className="h-8 w-8" />
-                </div>
-                <div className="text-4xl mb-2">40+</div>
-                <p className="text-gray-600">Top Universities</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* Testimonials Section */}
       <section className="py-20 px-6">
@@ -230,51 +196,6 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Career Paths Section */}
-      <section id="careers" className="py-20 px-6">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl mb-4">Explore Top Career Paths</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover the most popular and in-demand careers in the United States
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {careers.map((career) => (
-              <Card 
-                key={career.id} 
-                className="neomorphic-card cursor-pointer transition-all hover:scale-105"
-                onClick={() => window.location.hash = `#/career/${career.id}`}
-              >
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    <span>{career.title}</span>
-                    <ArrowRight className="h-5 w-5 text-gray-400" />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <p className="text-gray-600 line-clamp-3">{career.description}</p>
-                    
-                    {/* Career Awards */}
-                    {career.awards && career.awards.length > 0 && (
-                      <CareerAwards careerAwardIds={career.awards} maxDisplay={2} size="sm" />
-                    )}
-                    
-                    <div className="flex items-center space-x-2 pt-3">
-                      <TrendingUp className="h-4 w-4 text-green-500" />
-                      <span className="text-sm">
-                        ${(career.salary.entryLevel / 1000).toFixed(0)}k starting
-                      </span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* How It Works Section */}
       <section id="about" className="py-20 px-6 bg-white/50">

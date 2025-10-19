@@ -394,8 +394,8 @@ export function CareerVideoCarousel() {
     <div className="mt-8">
       <div className="container mx-auto max-w-7xl px-6">
         <div className="relative">
-          {/* Main Content - Shared Container */}
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-center max-w-4xl mx-auto">
+          {/* Main Content - Centered Video */}
+          <div className="flex justify-center">
             {/* Video */}
             <div className="relative w-full max-w-md">
               <Card 
@@ -440,11 +440,73 @@ export function CareerVideoCarousel() {
                   </div>
                 )}
 
-                {/* Person overlay on video */}
-                <div className="absolute inset-0 p-6 flex flex-col justify-end text-white z-20">
-                  <div className="text-center space-y-2">
-                    <h4 className="text-2xl text-white">{currentVideo.personName}</h4>
-                    <p className="text-lg text-white/90">{currentVideo.careerTitle}</p>
+                {/* Information Overlay on Video */}
+                <div className="absolute inset-0 p-6 flex flex-col justify-between text-white z-20">
+                  {/* Top section - empty for now, could add mute button here */}
+                  <div></div>
+                  
+                  {/* Bottom section - Centered layout */}
+                  <div className="space-y-4">
+                    {/* Person Name - Centered */}
+                    <h4 className="text-3xl font-bold text-white drop-shadow-lg text-center">{currentVideo.personName}</h4>
+                    
+                    {/* Information Rows */}
+                    <div className="space-y-3">
+                      {/* Current Position Row */}
+                      <div className="flex items-center">
+                        <div className="w-28 px-3 py-2 bg-white/20 backdrop-blur-sm rounded-full flex-shrink-0">
+                          <span className="text-sm text-white font-medium">Current Job</span>
+                        </div>
+                        <div className="ml-4 flex items-center gap-3">
+                          <img 
+                            src={currentVideo.companyLogo} 
+                            alt={currentVideo.companyName}
+                            className="w-5 h-5 rounded object-contain bg-white/20 p-1"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                          <span className="text-white font-semibold">
+                            {currentVideo.careerTitle} at {currentVideo.companyName}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      {/* Education Row */}
+                      <div className="flex items-center">
+                        <div className="w-28 px-3 py-2 bg-white/20 backdrop-blur-sm rounded-full flex-shrink-0">
+                          <span className="text-sm text-white font-medium">Education</span>
+                        </div>
+                        <div className="ml-4 flex items-center gap-3">
+                          <span className="text-white font-semibold">
+                            {currentVideo.collegeMajor} at {currentVideo.university}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      {/* Salary Row */}
+                      {currentCareer && (
+                        <div className="flex items-center">
+                          <div className="w-28 px-3 py-2 bg-white/20 backdrop-blur-sm rounded-full flex-shrink-0">
+                            <span className="text-sm text-white font-medium">Est. Salary</span>
+                          </div>
+                          <div className="ml-4 flex items-center gap-3">
+                            <span className="text-white font-semibold">
+                              ${(currentCareer.salary.tenYears / 1000).toFixed(0)}k+
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* CTA Button */}
+                    <Button 
+                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
+                      onClick={() => window.location.hash = `#/career/${currentVideo.careerId}`}
+                    >
+                      <Play className="h-5 w-5" />
+                      Watch Full Interview
+                    </Button>
                   </div>
                 </div>
 
@@ -465,78 +527,6 @@ export function CareerVideoCarousel() {
               </Card>
             </div>
 
-            {/* Compact Information Card - Same width as video */}
-            <Card className="neomorphic-card w-full max-w-md">
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  {/* Education Section */}
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-gray-600">
-                      <GraduationCap className="h-4 w-4" />
-                      <span className="text-xs font-semibold uppercase">Education</span>
-                    </div>
-                    <div className="py-2 px-3 rounded-lg bg-purple-50">
-                      <p className="text-sm font-medium text-purple-700">{currentVideo.collegeMajor}</p>
-                      <p className="text-xs text-gray-600">{currentVideo.university}</p>
-                    </div>
-                  </div>
-
-                  {/* Experience & Salary Row */}
-                  <div className="grid grid-cols-2 gap-3">
-                    {/* Experience Years */}
-                    <div className="py-2 px-3 rounded-lg bg-blue-50 text-center">
-                      <p className="text-xs text-gray-600">Experience</p>
-                      <p className="text-lg font-bold text-blue-700">{currentVideo.yearsOfExperience} Years</p>
-                    </div>
-
-                    {/* Current Salary */}
-                    {currentCareer && (
-                      <div className="py-2 px-3 rounded-lg bg-green-50 text-center">
-                        <p className="text-xs text-gray-600">Current Salary</p>
-                        <p className="text-lg font-bold text-green-700">${(currentCareer.salary.tenYears / 1000).toFixed(0)}k</p>
-                        <p className="text-xs text-gray-500">{currentCareer.salary.tenYearsPercentile}th percentile</p>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Work History */}
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-gray-600">
-                      <Building2 className="h-4 w-4" />
-                      <span className="text-xs font-semibold uppercase">Work History</span>
-                    </div>
-                    <div className="space-y-2">
-                      {currentVideo.workHistory.map((job, index) => (
-                        <div key={index} className="py-2 px-3 rounded-lg bg-gray-50 flex items-center gap-3">
-                          <img 
-                            src={job.companyLogo} 
-                            alt={job.companyName}
-                            className="w-8 h-8 rounded object-contain flex-shrink-0"
-                            onError={(e) => {
-                              e.currentTarget.style.display = 'none';
-                            }}
-                          />
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-gray-900 truncate">{job.jobTitle}</p>
-                            <p className="text-xs text-gray-600">{job.companyName}</p>
-                            <p className="text-xs text-gray-500">{job.years}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* CTA Button */}
-                  <Button 
-                    className="neomorphic-button-primary w-full"
-                    size="lg"
-                    onClick={() => window.location.hash = `#/career/${currentVideo.careerId}`}
-                  >
-                    Learn More About This Career
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
           </div>
 
           {/* Navigation Controls */}
