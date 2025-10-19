@@ -1,291 +1,161 @@
-import { Card, CardContent } from './ui/card';
-import { Button } from './ui/button';
-import { ArrowLeft, Heart, Target, Users, Lightbulb, Linkedin } from 'lucide-react';
-import logoImage from '../assets/images/career-playbook-logo-v3.png';
-import kennethHeadshot from '../assets/images/kenneth-headshot.jpeg';
-import tylorHeadshot from '../assets/images/tylor-headshot.jpeg';
+import { Target, Lightbulb, Heart, Users, Linkedin } from 'lucide-react';
+import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-gray-200/50">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center">
-            <a href="#/" className="cursor-pointer">
-              <img 
-                src={logoImage} 
-                alt="The Career Playbook" 
-                className="h-12 w-auto hover:opacity-80 transition-opacity"
-              />
-            </a>
-          </div>
-          <nav className="hidden md:flex space-x-8">
-            <a href="#/podcast" className="text-gray-600 hover:text-gray-900 transition-colors">Episodes</a>
-            <a href="#/careers" className="text-gray-600 hover:text-gray-900 transition-colors">Careers</a>
-            <a href="#/majors" className="text-gray-600 hover:text-gray-900 transition-colors">College Majors</a>
-            <a href="#/universities" className="text-gray-600 hover:text-gray-900 transition-colors">Universities</a>
-            <a href="#/find-your-path" className="text-gray-600 hover:text-gray-900 transition-colors">Find Your Path</a>
-            <a href="#/about" className="text-gray-900 transition-colors">About Us</a>
-            <a href="#/auth" className="text-gray-600 hover:text-gray-900 transition-colors">Account</a>
-          </nav>
-        </div>
-      </header>
-
+    <div className="min-h-screen bg-[#F9FAFB]">
       {/* Hero Section */}
-      <section className="py-20 px-6 bg-white/50">
-        <div className="container mx-auto text-center max-w-4xl">
-          <div className="mb-6">
-            <div className="inline-block neomorphic-icon-container-large mb-4">
-              <Users className="h-12 w-12 text-blue-500" />
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="flex justify-center mb-8">
+            <div className="w-20 h-20 bg-gradient-to-br from-[#5D5FEF]/20 to-[#5D5FEF]/10 rounded-full flex items-center justify-center">
+              <Users className="text-[#5D5FEF]" size={40} />
             </div>
           </div>
-          <h1 className="text-5xl md:text-6xl mb-6 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-            About Us
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <h1 className="mb-6">About Us</h1>
+          <p className="text-[#6B7280] text-lg">
             We're on a mission to help every student discover their path to a fulfilling career.
           </p>
         </div>
       </section>
 
-      {/* Our Mission */}
-      <section className="py-16 px-6">
-        <div className="container mx-auto max-w-4xl">
-          <Card className="neomorphic-card mb-12">
-            <CardContent className="p-12">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="neomorphic-icon-container">
-                  <Target className="h-8 w-8 text-blue-500" />
-                </div>
-                <h2 className="text-4xl">Our Mission</h2>
+      {/* Our Mission Section */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#E4E6EB] p-8 sm:p-12">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#5D5FEF]/20 to-[#5D5FEF]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Target className="text-[#5D5FEF]" size={32} />
               </div>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                Every student deserves to feel confident about their future. We started The Career Playbook to help high schoolers discover careers that align with who they are — not just what they think they "should" do. Through free, personalized guidance, we help students find clarity, direction, and motivation for what comes next.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* The Problem */}
-      <section className="py-16 px-6 bg-white/50">
-        <div className="container mx-auto max-w-4xl">
-          <Card className="neomorphic-card mb-12">
-            <CardContent className="p-12">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="neomorphic-icon-container">
-                  <Lightbulb className="h-8 w-8 text-yellow-500" />
-                </div>
-                <h2 className="text-4xl">The Problem</h2>
-              </div>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                Choosing a career path is one of the biggest decisions students face — but most don't get the support they need early enough. Many schools have limited counseling resources, and online advice is often generic or overwhelming. That's where we come in.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Who We Are */}
-      <section className="py-16 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <Card className="neomorphic-card mb-12">
-            <CardContent className="p-12">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="neomorphic-icon-container">
-                  <Heart className="h-8 w-8 text-red-500" />
-                </div>
-                <h2 className="text-4xl">Who We Are</h2>
-              </div>
-              
-              <div className="space-y-8">
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  Starting your career is scary. We've been there.
-                </p>
-                
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  When we were in high school, no one told us how to turn curiosity into a career. We didn't have mentors in our dream industries. We didn't know what doors to knock on — or even which ones existed. We learned everything the hard way, and we promised ourselves that future students shouldn't have to.
-                </p>
-                
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  We met at the University of Southern California, where we bonded over a shared belief that education should open doors — not leave students guessing about what's next. Years later, after navigating two very different but equally winding career paths, we decided to build something that would make that belief real.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Mission Statement */}
-          <Card className="neomorphic-card mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-100">
-            <CardContent className="p-8 text-center">
-              <div className="max-w-4xl mx-auto">
-                <h3 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 leading-tight">
-                  Together, we founded <span className="text-blue-600 font-extrabold">The Career Playbook</span> to make career discovery accessible, human, and real.
-                </h3>
-                <p className="text-xl text-gray-700 leading-relaxed font-medium">
-                  Because students shouldn't need <span className="font-bold text-gray-900">insider connections</span> or <span className="font-bold text-gray-900">luck</span> to figure out what's possible — just a little <span className="font-bold text-blue-600">guidance from people who've been there</span>.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Team Members */}
-          <div className="mb-8">
-            <h3 className="text-3xl font-bold text-center text-gray-800">Our Founders</h3>
+              <h2>Our Mission</h2>
+            </div>
+            <p className="text-[#6B7280] leading-relaxed">
+              Every student deserves to feel confident about their future. We started The Career Playbook to help high schoolers discover careers that align with who they are — not just what they think they "should" do. Through free, personalized guidance, we help students find clarity, direction, and motivation for what comes next.
+            </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-8">
+        </div>
+      </section>
+
+      {/* The Problem Section */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#E4E6EB] p-8 sm:p-12">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#5D5FEF]/20 to-[#5D5FEF]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Lightbulb className="text-[#5D5FEF]" size={32} />
+              </div>
+              <h2>The Problem</h2>
+            </div>
+            <p className="text-[#6B7280] leading-relaxed">
+              Choosing a career path is one of the biggest decisions students face — but most don't get the support they need early enough. Many schools have limited counseling resources, and online advice is often generic or overwhelming. That's where we come in.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Who We Are Section */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#E4E6EB] p-8 sm:p-12">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#5D5FEF]/20 to-[#5D5FEF]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Heart className="text-[#5D5FEF]" size={32} />
+              </div>
+              <h2>Who We Are</h2>
+            </div>
+            <div className="space-y-4 text-[#6B7280] leading-relaxed">
+              <p>
+                Starting your career is scary. We've been there.
+              </p>
+              <p>
+                When we were in high school, no one told us how to turn curiosity into a career. We didn't have mentors in our dream industries. We didn't know what doors to knock on — or even which ones existed. We learned everything the hard way, and we promised ourselves that future students shouldn't have to.
+              </p>
+              <p>
+                We met at the University of Southern California, where we bonded over a shared belief that education should open doors — not leave students guessing about what's next. Years later, after navigating two very different but equally winding career paths, we decided to build something that would make that belief real.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Together Section */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#E4E6EB] p-8 sm:p-12 text-center">
+            <h2 className="mb-4">
+              Together, we founded The Career Playbook to make career discovery accessible, human, and real.
+            </h2>
+            <p className="text-[#6B7280] leading-relaxed">
+              Because students shouldn't need insider connections or luck to figure out what's possible — just a little guidance from people who've been there.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Founders Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 pb-24">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-center mb-12">Our Founders</h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Tylor Inaba */}
-            <Card className="neomorphic-card">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-4 mb-6">
-                  <img 
-                    src={tylorHeadshot} 
-                    alt="Tylor Inaba" 
-                    className="w-16 h-16 rounded-full object-cover border-2 border-gray-200"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3">
-                      <h3 className="text-2xl font-bold">Tylor Inaba</h3>
-                      <button 
-                        onClick={() => window.open('https://www.linkedin.com/in/tylor-inaba-2b005862/', '_blank')}
-                        className="text-blue-600 hover:text-blue-800 transition-colors"
-                        title="Connect on LinkedIn"
-                      >
-                        <Linkedin className="h-5 w-5" />
-                      </button>
-                    </div>
-                    <p className="text-blue-600 font-medium">Director of Strategic Finance at ProsperOps</p>
+            <div className="bg-white rounded-2xl shadow-sm border border-[#E4E6EB] p-8">
+              <div className="flex items-center gap-4 mb-6">
+                <ImageWithFallback
+                  src="https://images.unsplash.com/photo-1723537742563-15c3d351dbf2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHBvcnRyYWl0JTIwbWFufGVufDF8fHx8MTc2MDkwMTk2M3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                  alt="Tylor Inaba"
+                  className="w-16 h-16 rounded-full object-cover"
+                />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-lg">Tylor Inaba</h3>
+                    <a
+                      href="https://www.linkedin.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#0A66C2] hover:text-[#004182] transition-colors"
+                    >
+                      <Linkedin size={18} />
+                    </a>
                   </div>
+                  <p className="text-[#6B7280] text-sm">Director of Strategic Finance at ProsperOps</p>
                 </div>
-                <p className="text-gray-700 leading-relaxed">
-                  Tylor began his career in finance with no connections, no roadmap, and a lot of rejection. After years of persistence, he broke into investment banking at Goldman Sachs — and later went on to work in venture capital at Accel and lead Finance and Strategy at multiple unicorn startups. Today, as Director of Finance and Strategy at ProsperOps, Tylor knows firsthand how transformative early guidance can be. His journey fuels his belief that every student, no matter where they start, deserves access to real-world career insight and opportunity.
-                </p>
-              </CardContent>
-            </Card>
+              </div>
+              <p className="text-[#6B7280] leading-relaxed">
+                Tylor began his career in finance with no connections, no roadmap, and a lot of rejection. After years of persistence, he broke into investment banking at Goldman Sachs — and later went on to work in venture capital at Accel and lead Finance and Strategy at multiple unicorn startups. Today, as Director of Finance and Strategy at ProsperOps, Tylor knows firsthand how transformative early guidance can be. His journey fuels his belief that every student, no matter where they start, deserves access to real-world career insight and opportunity.
+              </p>
+            </div>
 
             {/* Kenneth Shih */}
-            <Card className="neomorphic-card">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-4 mb-6">
-                  <img 
-                    src={kennethHeadshot} 
-                    alt="Kenneth Shih" 
-                    className="w-16 h-16 rounded-full object-cover border-2 border-gray-200"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3">
-                      <h3 className="text-2xl font-bold">Kenneth Shih</h3>
-                      <button 
-                        onClick={() => window.open('https://www.linkedin.com/in/kenneth-shih-ks1/', '_blank')}
-                        className="text-blue-600 hover:text-blue-800 transition-colors"
-                        title="Connect on LinkedIn"
-                      >
-                        <Linkedin className="h-5 w-5" />
-                      </button>
-                    </div>
-                    <p className="text-blue-600 font-medium">Senior Product Manager at LinkedIn</p>
+            <div className="bg-white rounded-2xl shadow-sm border border-[#E4E6EB] p-8">
+              <div className="flex items-center gap-4 mb-6">
+                <ImageWithFallback
+                  src="https://images.unsplash.com/photo-1706025090996-63717544be2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhc2lhbiUyMHByb2Zlc3Npb25hbCUyMGhlYWRzaG90JTIwbWFufGVufDF8fHx8MTc2MDkwNTg4Nnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                  alt="Kenneth Shih"
+                  className="w-16 h-16 rounded-full object-cover"
+                />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-lg">Kenneth Shih</h3>
+                    <a
+                      href="https://www.linkedin.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#0A66C2] hover:text-[#004182] transition-colors"
+                    >
+                      <Linkedin size={18} />
+                    </a>
                   </div>
+                  <p className="text-[#6B7280] text-sm">Senior Product Manager at LinkedIn</p>
                 </div>
-                <p className="text-gray-700 leading-relaxed">
-                  Kenneth is now a Senior Product Manager at LinkedIn, where he's driven by the company's mission of helping people find their dream careers and achieve economic empowerment. But his path wasn't straightforward either. As the son of immigrants with no network in tech, Kenneth struggled to find direction and support while trying to break into the industry. That experience shaped his purpose: to make sure the next generation doesn't have to navigate those same challenges alone.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-6 bg-white/50">
-        <div className="container mx-auto max-w-4xl text-center">
-          <Card className="neomorphic-card p-12">
-            <h2 className="text-4xl mb-4">Ready to Start Your Journey?</h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Explore careers, discover your path, and take the next step toward your future.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="neomorphic-button-primary"
-                onClick={() => window.location.hash = '#/careers'}
-              >
-                Careers
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                onClick={() => window.location.hash = '#/'}
-              >
-                Back to Home
-              </Button>
+              </div>
+              <p className="text-[#6B7280] leading-relaxed">
+                Kenneth is now a Senior Product Manager at LinkedIn, where he's driven by the company's mission of helping people find their dream careers and achieve economic empowerment. But his path wasn't straightforward either. As the son of immigrants with no network in tech, Kenneth struggled to find direction and support while trying to break into the industry. That experience shaped his purpose: to make sure the next generation doesn't have to navigate those same challenges alone.
+              </p>
             </div>
-          </Card>
+          </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-6">
-        <div className="container mx-auto text-center">
-          <div className="flex items-center justify-center mb-4">
-            <img 
-              src={logoImage} 
-              alt="The Career Playbook" 
-              className="h-12 w-auto"
-            />
-          </div>
-          <p className="text-gray-400 mb-4">
-            Empowering high school students to discover their future
-          </p>
-          <p className="text-gray-500 text-sm">
-            &copy; 2025 The Career Playbook. All information is for educational purposes.
-          </p>
-        </div>
-      </footer>
-
-      <style jsx>{`
-        .neomorphic-card {
-          background: linear-gradient(145deg, #ffffff, #f0f0f0);
-          box-shadow: 20px 20px 40px #d1d1d1, -20px -20px 40px #ffffff;
-          border: none;
-          border-radius: 20px;
-        }
-        
-        .neomorphic-icon-container {
-          width: 4rem;
-          height: 4rem;
-          background: linear-gradient(145deg, #f8f9fa, #e9ecef);
-          box-shadow: inset 8px 8px 16px #dcdcdc, inset -8px -8px 16px #ffffff;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        
-        .neomorphic-icon-container-large {
-          width: 5rem;
-          height: 5rem;
-          background: linear-gradient(145deg, #f8f9fa, #e9ecef);
-          box-shadow: inset 12px 12px 24px #dcdcdc, inset -12px -12px 24px #ffffff;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .neomorphic-button-primary {
-          background: linear-gradient(145deg, #667eea, #764ba2);
-          color: white;
-          box-shadow: 8px 8px 16px #5a6fd8, -8px -8px 16px #7c5fae;
-          border: none;
-          border-radius: 12px;
-        }
-        
-        .neomorphic-button-primary:hover {
-          box-shadow: 4px 4px 8px #5a6fd8, -4px -4px 8px #7c5fae;
-          transform: translateY(-2px);
-        }
-      `}</style>
     </div>
   );
 }

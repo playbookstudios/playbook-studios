@@ -1,85 +1,109 @@
 import { useState, useEffect } from 'react';
-import { LandingPage } from './components/LandingPage';
-import { updateSEO } from './utils/seo';
-import { AllCareersPage } from './components/AllCareersPage';
-import { CareerPathPage } from './components/CareerPathPage';
-import { MajorPage } from './components/MajorPage';
-import { CollegePage } from './components/CollegePage';
+import { Header } from './components/Header';
+import { HomePage } from './components/HomePage';
+import { EpisodesPage } from './components/EpisodesPage';
+import { EpisodeDetail } from './components/EpisodeDetail';
+import { AuthModal } from './components/AuthModal';
+import { UserProfile } from './components/UserProfile';
+import { ContactPage } from './components/ContactPage';
 import { AboutPage } from './components/AboutPage';
-import { CollegeMajorsPage } from './components/CollegeMajorsPage';
-import { UniversitiesPage } from './components/UniversitiesPage';
-import { PodcastPage } from './components/PodcastPage';
-import { AuthPage } from './components/AuthPage';
-import { FindYourPathPage } from './components/FindYourPathPage';
+import './styles/globals.css';
+
+type Page = 'home' | 'episodes' | 'episode' | 'about' | 'contact' | 'profile';
+type AuthType = 'login' | 'signup' | null;
+
+interface User {
+  name: string;
+  email: string;
+  phone: string;
+}
 
 export default function App() {
-  const [route, setRoute] = useState<{
-    page: 'home' | 'careers' | 'career' | 'major' | 'college' | 'about' | 'majors' | 'universities' | 'podcast' | 'auth' | 'find-your-path';
-    id?: string;
-  }>({ page: 'home' });
+  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [selectedEpisodeId, setSelectedEpisodeId] = useState<string | null>(null);
+  const [showAuth, setShowAuth] = useState<AuthType>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [likedVideoIds, setLikedVideoIds] = useState<string[]>(['1', '3', '5']); // Mock liked videos
 
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.slice(1); // Remove the '#'
-      let newRoute = { page: 'home' as const };
-      
-      if (!hash || hash === '/') {
-        newRoute = { page: 'home' };
-      } else if (hash === '/careers') {
-        newRoute = { page: 'careers' };
-      } else if (hash === '/about') {
-        newRoute = { page: 'about' };
-      } else if (hash === '/majors') {
-        newRoute = { page: 'majors' };
-      } else if (hash === '/universities') {
-        newRoute = { page: 'universities' };
-      } else if (hash === '/podcast') {
-        newRoute = { page: 'podcast' };
-      } else if (hash === '/auth') {
-        newRoute = { page: 'auth' };
-      } else if (hash === '/find-your-path') {
-        newRoute = { page: 'find-your-path' };
-      } else if (hash.startsWith('/career/')) {
-        const id = hash.replace('/career/', '');
-        newRoute = { page: 'career', id };
-      } else if (hash.startsWith('/major/')) {
-        const id = hash.replace('/major/', '');
-        newRoute = { page: 'major', id };
-      } else if (hash.startsWith('/college/')) {
-        const id = hash.replace('/college/', '');
-        newRoute = { page: 'college', id };
-      }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage, selectedEpisodeId]);
 
-      setRoute(newRoute);
+  const handleNavigate = (page: string, episodeId?: string) => {
+    if (page === 'episode' && episodeId) {
+      setSelectedEpisodeId(episodeId);
+      setCurrentPage('episode');
+    } else {
+      setCurrentPage(page as Page);
+      setSelectedEpisodeId(null);
+    }
+  };
 
-      // Scroll to top when route changes
-      window.scrollTo(0, 0);
-      
-      // Update SEO based on current route
-      updateSEO(newRoute.page);
-    };
+  const handleAuthSubmit = (data: { name?: string; email: string; phone?: string; password: string }) => {
+    // Mock authentication
+    setUser({
+      name: data.name || 'User',
+      email: data.email,
+      phone: data.phone || '',
+    });
+    setShowAuth(null);
+  };
 
-    // Handle initial load
-    handleHashChange();
+  const handleLogout = () => {
+    setUser(null);
+    setCurrentPage('home');
+  };
 
-    // Listen for hash changes
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+  const handleSwitchAuthType = () => {
+    setShowAuth(showAuth === 'login' ? 'signup' : 'login');
+  };
 
   return (
-    <>
-      {route.page === 'home' && <LandingPage />}
-      {route.page === 'careers' && <AllCareersPage />}
-      {route.page === 'about' && <AboutPage />}
-      {route.page === 'majors' && <CollegeMajorsPage />}
-      {route.page === 'universities' && <UniversitiesPage />}
-      {route.page === 'podcast' && <PodcastPage />}
-      {route.page === 'auth' && <AuthPage />}
-      {route.page === 'find-your-path' && <FindYourPathPage />}
-      {route.page === 'career' && route.id && <CareerPathPage careerId={route.id} />}
-      {route.page === 'major' && route.id && <MajorPage majorId={route.id} />}
-      {route.page === 'college' && route.id && <CollegePage collegeId={route.id} />}
-    </>
+    <div className="min-h-screen bg-[#F9FAFB]">
+      <Header
+        currentPage={currentPage}
+        onNavigate={handleNavigate}
+        onShowAuth={(type) => setShowAuth(type)}
+        isLoggedIn={!!user}
+        userName={user?.name}
+      />
+
+      {currentPage === 'home' && <HomePage onNavigate={handleNavigate} />}
+      
+      {currentPage === 'episodes' && (
+        <EpisodesPage onEpisodeClick={(id) => handleNavigate('episode', id)} />
+      )}
+      
+      {currentPage === 'episode' && selectedEpisodeId && (
+        <EpisodeDetail
+          episodeId={selectedEpisodeId}
+          onBack={() => setCurrentPage('episodes')}
+          onEpisodeClick={(id) => handleNavigate('episode', id)}
+        />
+      )}
+      
+      {currentPage === 'about' && <AboutPage />}
+      
+      {currentPage === 'contact' && <ContactPage />}
+      
+      {currentPage === 'profile' && user && (
+        <UserProfile
+          userName={user.name}
+          userEmail={user.email}
+          likedVideoIds={likedVideoIds}
+          onLogout={handleLogout}
+          onVideoClick={(id) => handleNavigate('episode', id)}
+        />
+      )}
+
+      {showAuth && (
+        <AuthModal
+          type={showAuth}
+          onClose={() => setShowAuth(null)}
+          onSubmit={handleAuthSubmit}
+          onSwitchType={handleSwitchAuthType}
+        />
+      )}
+    </div>
   );
 }
