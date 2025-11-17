@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kenneth - Second Dinner Application</title>
+    <style>
+      :root {
+        --accent: #1E90FF;
+        --accent-light: rgba(30, 144, 255, 0.4);
+        --text-primary: #f1f1f1;
+        --text-secondary: #b8d4e8;
+        --bg-dark: #4682B4;
+        --bg-panel: rgba(70, 130, 180, 0.85);
+        --bg-overlay: rgba(70, 130, 180, 0.92);
+        --card-border: rgba(255, 255, 255, 0.25);
+        --tab-active-border: rgba(30, 144, 255, 0.65);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--text-primary);
+        background: url("background.png") center/cover no-repeat fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        overflow: hidden;
+      }
+
+      .frame {
+        position: relative;
+        width: min(1100px, 100%);
+        height: min(620px, 90vh);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        backdrop-filter: blur(18px);
+        background: linear-gradient(
+          135deg,
+          rgba(70, 130, 180, 0.9) 0%,
+          rgba(65, 105, 225, 0.85) 50%,
+          rgba(70, 130, 180, 0.95) 100%
+        );
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        grid-template-rows: 1fr;
+        box-shadow: 0 26px 40px rgba(0, 0, 0, 0.5),
+                    0 0 60px rgba(30, 144, 255, 0.2);
+        overflow: hidden;
+      }
+
+      aside {
+        padding: 1.5rem 2rem 2.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 1rem;
+        border-left: 1px solid var(--card-border);
+        background: linear-gradient(
+          180deg,
+          rgba(70, 130, 180, 0.85) 0%,
+          rgba(65, 105, 225, 0.75) 100%
+        );
+        box-shadow: -2px 0 20px rgba(0, 0, 0, 0.2);
+        height: 100%;
+        align-self: stretch;
+      }
+
+      .right-stat-card {
+        display: none;
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 0.9rem 1rem;
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(6px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+      }
+
+      .right-stat-card.visible {
+        display: block;
+      }
+
+      .right-stat-title {
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .right-copy-box {
+        display: none;
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 1.25rem 1.25rem;
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(6px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+        margin-top: 1rem;
+      }
+
+      .right-copy-box.visible {
+        display: block;
+      }
+
+      .right-copy-text {
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      .right-copy-text ul {
+        margin: 0.75rem 0 0 1.25rem;
+        padding: 0;
+        list-style-type: disc;
+      }
+
+      .right-copy-text li {
+        margin: 0.5rem 0;
+      }
+
+      .panel-title {
+        display: none;
+      }
+
+      .panel-heading {
+        display: none;
+      }
+
+      .tab-list {
+        display: none;
+      }
+
+      main {
+        position: relative;
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        grid-template-rows: 1fr;
+        align-items: stretch;
+        height: 100%;
+      }
+
+      .character-stage {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        overflow: hidden;
+        padding: 1rem 0 0 0;
+        margin: 0;
+        height: 100%;
+      }
+
+      .character-card {
+        position: relative;
+        width: 280px;
+        min-height: 280px;
+        border-radius: 26px;
+        overflow: hidden;
+        border: 1px solid var(--card-border);
+        background: transparent;
+        box-shadow: 0 28px 46px rgba(0, 0, 0, 0.5);
+        padding: 0;
+        margin: 0;
+      }
+
+      .character-art {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        filter: drop-shadow(0 40px 30px rgba(0, 0, 0, 0.65));
+        margin: 0;
+        padding: 0;
+      }
+
+      .character-art video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        display: block;
+        margin: 0;
+        padding: 0;
+      }
+
+      .overlay {
+        position: relative;
+        padding: 1.5rem 2rem 2.5rem 2rem;
+        background: linear-gradient(
+          180deg,
+          rgba(70, 130, 180, 0.92) 0%,
+          rgba(65, 105, 225, 0.88) 100%
+        );
+        border-right: 1px solid var(--card-border);
+        display: flex;
+        flex-direction: column;
+        gap: 1.4rem;
+        transform: translateX(-100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.35s ease, opacity 0.35s ease;
+        box-shadow: -2px 0 20px rgba(0, 0, 0, 0.2);
+        height: 100%;
+        align-self: stretch;
+      }
+
+      .overlay.visible {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .overlay-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .overlay-title {
+        display: none;
+      }
+
+      .overlay-subtitle {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      .stat-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .stat {
+        display: grid;
+        grid-template-columns: 140px 1fr auto;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .stat-pill {
+        appearance: none;
+        border: 1px solid var(--card-border);
+        background: rgba(0, 0, 0, 0.25);
+        color: var(--text-primary);
+        padding: 0.5rem 0.9rem;
+        border-radius: 999px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.05s ease;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      .stat-pill:hover {
+        background: linear-gradient(135deg, rgba(30,144,255,0.35), rgba(0,191,255,0.3));
+        box-shadow: 0 2px 10px rgba(30,144,255,0.25);
+      }
+
+      .stat-pill.active {
+        background: linear-gradient(135deg, rgba(30,144,255,0.55), rgba(0,191,255,0.5));
+        box-shadow: 0 4px 14px rgba(30,144,255,0.35);
+      }
+
+      .stat-bar {
+        position: relative;
+        height: 12px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+      }
+
+      .stat-fill {
+        position: absolute;
+        inset: 0;
+        width: 0%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--accent) 0%, #00BFFF 50%, #1E90FF 100%);
+        transition: width 0.5s ease;
+        box-shadow: 0 0 8px rgba(30, 144, 255, 0.6);
+      }
+
+      .stat-value {
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .footer {
+        display: none;
+      }
+
+      @media (max-width: 960px) {
+        body {
+          padding: 1rem;
+        }
+
+        .frame {
+          grid-template-columns: 200px 1fr;
+        }
+
+        .overlay {
+          padding: 2rem 1.5rem;
+        }
+      }
+
+      @media (max-width: 780px) {
+        .frame {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto;
+          height: auto;
+        }
+
+        aside {
+          flex-direction: row;
+          overflow-x: auto;
+          padding: 1.5rem;
+          gap: 1rem;
+          align-items: center;
+        }
+
+        .panel-title,
+        .panel-heading {
+          display: none;
+        }
+
+        .tab {
+          white-space: nowrap;
+          transform: none !important;
+        }
+
+        main {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto;
+        }
+
+        .overlay {
+          position: static;
+          transform: translateY(20px);
+          opacity: 1;
+          pointer-events: auto;
+          border-left: none;
+          border-top: 1px solid var(--card-border);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <main>
+        <section class="overlay" id="overlay">
+          <div class="overlay-header">
+            <div>
+              <h1 class="overlay-title" id="overlay-title">Breed</h1>
+              <p class="overlay-subtitle" id="overlay-description">
+                Select a breed on the right to reveal its description and stats.
+              </p>
+            </div>
+            <div class="footer">
+              <span id="overlay-trait">Trait</span>
+            </div>
+          </div>
+          <div class="stat-grid" id="stat-grid"></div>
+        </section>
+        <section class="character-stage">
+          <div class="character-card">
+            <div class="character-art" role="img" aria-label="Selected character">
+              <video autoplay loop muted playsinline>
+                <source src="kenneth-jjk.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </section>
+      </main>
+      <aside>
+        <div>
+          <div class="panel-title">Genetics</div>
+          <div class="panel-heading">Choose Breed</div>
+        </div>
+        <div id="right-panel-detail" class="right-stat-card" aria-live="polite">
+          <div style="font-size: 0.75rem; letter-spacing: 0.2em; color: var(--text-secondary); text-transform: uppercase;">Stat</div>
+          <div id="right-stat-title" class="right-stat-title">None</div>
+          <div style="display:grid; grid-template-columns: 1fr auto; align-items:center; gap:0.5rem;">
+            <div class="stat-bar" style="height:8px"><div id="right-stat-bar" class="stat-fill" style="width:0%"></div></div>
+            <div id="right-stat-value" class="stat-value">0</div>
+          </div>
+        </div>
+        <div id="right-copy-box" class="right-copy-box" aria-live="polite">
+          <div id="right-copy-text" class="right-copy-text"></div>
+        </div>
+        <nav class="tab-list" id="tabs"></nav>
+      </aside>
+    </div>
+
+    <script>
+      const breedData = [
+        {
+          name: "Primal",
+          trait: "Balanced Dexterity",
+          description:
+            "Hi, I'm Kenneth! I'm a big fan of what Second Dinner has built with Marvel Snap, and would love to join the team as a Principal PM for the next unannounced title! I think I'd be a great fit for the role - click below to see some reasons why!",
+          stats: [
+            { label: "Product Development", value: 100 },
+            { label: "Data", value: 100 },
+            { label: "F2P Gaming", value: 60 },
+            { label: "Monetization", value: 85 },
+            { label: "Anime Interest", value: 80 },
+            { label: "Business Chops", value: 100 }
+          ]
+        }
+      ];
+
+      const tabsContainer = document.getElementById("tabs");
+      const overlay = document.getElementById("overlay");
+      const overlayTitle = document.getElementById("overlay-title");
+      const overlayDescription = document.getElementById("overlay-description");
+      const overlayTrait = document.getElementById("overlay-trait");
+      const statGrid = document.getElementById("stat-grid");
+
+      // Stat copy mapping
+      const statCopy = {
+        "Product Development": "Currently a Senior Product Manager at LinkedIn, focusing on LinkedIn Learning and am responsible for member engagement and retention. Some of my proudest achievements are: <ul><li>launching 0-->1 content formats through a 3rd party licensing partnership, driving $7M in annual revenue.</li><li>building an AI-personalized learning plan feature, which drove +20% watch time engagement and earned LinkedIn a technical patent.</li></ul>",
+        "Data": "I've been told Data is my superpower as a PM. I started my career in analytics and used to manage a team of analysts. Even today, I write most of my own SQL and even started a Data Bootcamp at LinkedIn to help other PMs upskill.",
+        "F2P Gaming": "This is obviously my biggest gap. While I don't have PM experience in F2P gaming, I am a lifelong gamer and primarily play F2P games. What I lack in experience, I make up for in deep passion.<br><br>I have been playing League of Legends for over half my life. Other F2P mobile games I have recently played a lot of also include<ul><li>Marvel Snap (Vibranium rank at peak)</li><li>League of Legends Wild Rift (Diamond rank at peak)</li><li>Stumble Guys</li><li>Monopoly Go</li><li>Call Of Duty Mobile</li></ul>",
+        "Monetization": "",
+        "Anime Interest": "",
+        "Business Chops": ""
+      };
+
+      function renderStats(stats) {
+        statGrid.innerHTML = "";
+        stats.forEach((stat) => {
+          const statRow = document.createElement("div");
+          statRow.className = "stat";
+          statRow.innerHTML = `
+            <button class="stat-pill" type="button" data-stat="${stat.label}" data-value="${stat.value}">${stat.label}</button>
+            <div class="stat-bar" role="presentation">
+              <div class="stat-fill" style="width: ${stat.value}%;"></div>
+            </div>
+            <div class="stat-value">${stat.value}</div>
+          `;
+          statGrid.appendChild(statRow);
+        });
+
+        // Wire up pill clicks
+        statGrid.querySelectorAll('.stat-pill').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            statGrid.querySelectorAll('.stat-pill').forEach((b)=>b.classList.remove('active'));
+            btn.classList.add('active');
+            const label = btn.getAttribute('data-stat');
+            const value = parseInt(btn.getAttribute('data-value'), 10) || 0;
+            updateRightPanelForStat(label, value);
+          });
+        });
+      }
+
+      function updateRightPanelForStat(label, value) {
+        // Update right panel card
+        const rCard = document.getElementById('right-panel-detail');
+        const rTitle = document.getElementById('right-stat-title');
+        const rBar = document.getElementById('right-stat-bar');
+        const rValue = document.getElementById('right-stat-value');
+        if (rCard && rTitle && rBar && rValue) {
+          rTitle.textContent = label;
+          rValue.textContent = value;
+          rBar.style.width = `${value}%`;
+          rCard.classList.add('visible');
+        }
+
+        // Update copy box
+        const copyBox = document.getElementById('right-copy-box');
+        const copyText = document.getElementById('right-copy-text');
+        if (copyBox && copyText) {
+          const copy = statCopy[label] || "";
+          if (copy) {
+            copyText.innerHTML = copy;
+            copyBox.classList.add('visible');
+          } else {
+            copyBox.classList.remove('visible');
+          }
+        }
+      }
+
+      function handleTabClick(data, tabElement) {
+        document
+          .querySelectorAll(".tab")
+          .forEach((tab) => tab.classList.remove("active"));
+        tabElement.classList.add("active");
+
+        overlayTitle.textContent = data.name;
+        overlayDescription.textContent = data.description;
+        overlayTrait.textContent = data.trait;
+        renderStats(data.stats);
+
+        overlay.classList.add("visible");
+
+        // Auto-select first stat for right panel
+        const firstStat = data.stats[0];
+        if (firstStat) {
+          updateRightPanelForStat(firstStat.label, firstStat.value);
+          const firstBtn = statGrid.querySelector('.stat-pill');
+          if (firstBtn) firstBtn.classList.add('active');
+        }
+      }
+
+      function buildTabs() {
+        breedData.forEach((breed, index) => {
+          const tab = document.createElement("button");
+          tab.type = "button";
+          tab.className = "tab";
+          tab.textContent = breed.name;
+          tab.addEventListener("click", () => handleTabClick(breed, tab));
+          tab.addEventListener("keypress", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              handleTabClick(breed, tab);
+            }
+          });
+          tabsContainer.appendChild(tab);
+
+          if (index === 0) {
+            handleTabClick(breed, tab);
+          }
+        });
+      }
+
+      buildTabs();
+
+      // Adjust frame size to match video aspect ratio
+      function adjustVideoFrame() {
+        const video = document.querySelector('.character-art video');
+        const card = document.querySelector('.character-card');
+        
+        if (video && card) {
+          // Wait for video metadata to load
+          if (video.readyState >= 1) {
+            const videoWidth = video.videoWidth || video.naturalWidth;
+            const videoHeight = video.videoHeight || video.naturalHeight;
+            
+            if (videoWidth && videoHeight) {
+              const videoAspectRatio = videoWidth / videoHeight;
+              const currentWidth = 280; // Base width
+              
+              // Calculate height based on video aspect ratio
+              const calculatedHeight = currentWidth / videoAspectRatio;
+              
+              // Set the card dimensions to match video aspect ratio
+              card.style.width = currentWidth + 'px';
+              card.style.height = calculatedHeight + 'px';
+            }
+          } else {
+            // Wait for video to load metadata
+            video.addEventListener('loadedmetadata', () => {
+              const videoWidth = video.videoWidth;
+              const videoHeight = video.videoHeight;
+              
+              if (videoWidth && videoHeight) {
+                const videoAspectRatio = videoWidth / videoHeight;
+                const currentWidth = 280; // Base width
+                const calculatedHeight = currentWidth / videoAspectRatio;
+                
+                card.style.width = currentWidth + 'px';
+                card.style.height = calculatedHeight + 'px';
+              }
+            });
+          }
+        }
+      }
+
+      // Run on page load
+      window.addEventListener('load', adjustVideoFrame);
+      
+      // Also run when video loads (in case it's cached)
+      const video = document.querySelector('.character-art video');
+      if (video) {
+        if (video.readyState >= 1) {
+          adjustVideoFrame();
+        } else {
+          video.addEventListener('loadedmetadata', adjustVideoFrame);
+        }
+      }
+    </script>
+  </body>
+</html>
