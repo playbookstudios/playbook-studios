@@ -101,6 +101,26 @@
         backdrop-filter: blur(6px);
         box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
         margin-top: 1rem;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+
+      .right-copy-box::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .right-copy-box::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+      }
+
+      .right-copy-box::-webkit-scrollbar-thumb {
+        background: rgba(30, 144, 255, 0.5);
+        border-radius: 4px;
+      }
+
+      .right-copy-box::-webkit-scrollbar-thumb:hover {
+        background: rgba(30, 144, 255, 0.7);
       }
 
       .right-copy-box.visible {
@@ -232,6 +252,15 @@
         font-size: 0.95rem;
         color: var(--text-secondary);
         line-height: 1.5;
+      }
+
+      .stats-header {
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-primary);
+        margin: 0.5rem 0 0.75rem 0;
       }
 
       .stat-grid {
@@ -374,6 +403,7 @@
               <span id="overlay-trait">Trait</span>
             </div>
           </div>
+          <h2 class="stats-header">STATS</h2>
           <div class="stat-grid" id="stat-grid"></div>
         </section>
         <section class="character-stage">
@@ -418,8 +448,7 @@
             { label: "Data", value: 100 },
             { label: "F2P Gaming", value: 60 },
             { label: "Monetization", value: 85 },
-            { label: "Anime Interest", value: 80 },
-            { label: "Business Chops", value: 100 }
+            { label: "Anime Interest", value: 80 }
           ]
         }
       ];
@@ -435,10 +464,9 @@
       const statCopy = {
         "Product Development": "Currently a Senior Product Manager at LinkedIn, focusing on LinkedIn Learning and am responsible for member engagement and retention. Some of my proudest achievements are: <ul><li>launching 0-->1 content formats through a 3rd party licensing partnership, driving $7M in annual revenue.</li><li>building an AI-personalized learning plan feature, which drove +20% watch time engagement and earned LinkedIn a technical patent.</li></ul>",
         "Data": "I've been told Data is my superpower as a PM. I started my career in analytics and used to manage a team of analysts. Even today, I write most of my own SQL and even started a Data Bootcamp at LinkedIn to help other PMs upskill.",
-        "F2P Gaming": "This is obviously my biggest gap. While I don't have PM experience in F2P gaming, I am a lifelong gamer and primarily play F2P games. What I lack in experience, I make up for in deep passion.<br><br>I have been playing League of Legends for over half my life. Other F2P mobile games I have recently played a lot of also include<ul><li>Marvel Snap (Vibranium rank at peak)</li><li>League of Legends Wild Rift (Diamond rank at peak)</li><li>Stumble Guys</li><li>Monopoly Go</li><li>Call Of Duty Mobile</li></ul>",
-        "Monetization": "",
-        "Anime Interest": "",
-        "Business Chops": ""
+        "F2P Gaming": "This is obviously my biggest gap. While I don't have PM experience in F2P gaming, I am a lifelong gamer and primarily play F2P games. What I lack in experience, I make up for in deep passion.<br><br>I have been playing League of Legends for over half my life and grew up playing RPGs like World of Warcraft.<br><br>I've also been increasingly interested in the F2P mobile games space, and have recently been playing games like:<ul><li>Marvel Snap (Vibranium rank at peak)</li><li>League of Legends Wild Rift (Diamond rank at peak)</li><li>Stumble Guys</li><li>Monopoly Go</li><li>Call Of Duty Mobile</li></ul>",
+        "Monetization": "Most of my professional experience has had a strong growth and monetization focus. Whether it was improving cohort ARPU at GOAT through building new user incentives, or optimizing our conversion funnel at Noom through rapid experimentation, I'm no stranger to building monetization models that balance member value with business objectives.",
+        "Anime Interest": "I saw this game might be based on an anime IP, which could be a natural fit for me given the amount of anime I watch! Some of my favorite animes include:<ul><li>Attack on Titan</li><li>Jujutsu Kaisen</li><li>Full Metal Alchemist: Brotherhood</li><li>Naruto</li><li>Dragon Ball Z</li></ul>"
       };
 
       function renderStats(stats) {
